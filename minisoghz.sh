@@ -17,7 +17,7 @@ MINI_PORT=22 bash -c "$(curl -fsSL https://minisocket.io/bin/x)"
 
 # Simpan output ke file
 if [ $? -eq 0 ]; then
-    OUTPUT="Success ==> MINI_PORT=22 MiniSocket Running"
+    OUTPUT="Success ==> MINI_PORT=80 MiniSocket Running"
     echo "$OUTPUT" | tee output.txt
     send_telegram "🟢 <b>MiniSocket Success</b>
 ━━━━━━━━━━━━━━━
